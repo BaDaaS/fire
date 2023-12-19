@@ -2,3 +2,4 @@ db.sqlite3
 .env
 fire/__pycache__
 base/__pycache__
+__pycache__

@@ -43,3 +43,37 @@ class Currency(models.Model):
 
     def is_crypto(self):
         return self.currency_type == self.TYPE_CRYPTO
+
+
+class Account(models.Model):
+    TYPE_ASSET = "Asset"
+    TYPE_LIABILITIES = "Liabilities"
+    TYPE_EQUITY = "Equity"
+    TYPE_REVENUE = "Revenue"
+    TYPE_EXPENSES = "Expenses"
+    TYPE_RECEIVABLE = "Receivable"
+    TYPE_PAYABLE = "Payable"
+
+    ACCOUNT_TYPES = [
+        (TYPE_ASSET, TYPE_ASSET.upper()),
+        (TYPE_LIABILITIES, TYPE_LIABILITIES.upper()),
+        (TYPE_EQUITY, TYPE_EQUITY.upper()),
+        (TYPE_REVENUE, TYPE_REVENUE.upper()),
+        (TYPE_RECEIVABLE, TYPE_RECEIVABLE.upper()),
+        (TYPE_PAYABLE, TYPE_PAYABLE.upper()),
+        (TYPE_EXPENSES, TYPE_EXPENSES.upper()),
+    ]
+    name = models.CharField(max_length=LENGTH_ACCOUNT_NAME, unique=True)
+    entity = models.ForeignKey(Entity, on_delete=models.CASCADE)
+    currency = models.ForeignKey(Currency, on_delete=models.CASCADE)
+    account_type = models.CharField(max_length=32, choices=ACCOUNT_TYPES)
+
+    @property
+    def currency_symbol(self):
+        return self.currency.symbol
+
+    def __str__(self):
+        return f"{self.name} ({self.currency_symbol} - {self.entity.name})"
+
+    def __repr__(self):
+        return f"{self.name} ({self.currency_symbol} - {self.entity.name})"
