@@ -2,6 +2,19 @@ from django.db import models
 from base.constants import *
 
 
+class Entity(models.Model):
+    name = models.CharField(unique=True, max_length=LENGTH_ENTITY_NAME)
+
+    class Meta:
+        verbose_name_plural = "Entities"
+
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return self.name
+
+
 # Create your models here.
 class Currency(models.Model):
     TYPE_FIAT = "FIAT"
