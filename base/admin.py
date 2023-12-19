@@ -1,5 +1,5 @@
 from django.contrib import admin
-from base.models import Currency
+from base.models import Currency, Entity
 
 
 class EntityAdmin(admin.ModelAdmin):
@@ -11,3 +11,4 @@ class CurrencyAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Currency, CurrencyAdmin)
+admin.site.register(Entity, EntityAdmin)
